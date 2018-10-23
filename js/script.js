@@ -93,20 +93,14 @@ function printQuote(){
   var quoteObj = getRandomQuote(quotes);
   html += '<p class="quote">' + quoteObj.quote + '</p>' + '<p class="source">' + quoteObj.source;
 // Only creat span elements if property exists
-  if('citation' in quoteObj){
-    html += '<span class="citation">' + quoteObj.citation + '</span>';
-  }
-// Only creat span elements if property exists
-  if('year' in quoteObj){
-    html += '<span class="year">' + quoteObj.year + '</span>';
-  }
-  if('tag' in quoteObj){
-    html += '<span class="tag">' + quoteObj.tag + '</span>';
+  for (var i = 2; i < Object.keys(quoteObj).length; i++){
+    html += '<span class="' + Object.keys(quoteObj)[i] + '">' + quoteObj[Object.keys(quoteObj)[i]] + '</span>';
   }
   html += '</p>';
+  console.log(html);
   document.getElementById('quote-box').innerHTML = html;
   // Here we replace the body background color
-  document.body.style.background = 'rgb('+ randomColor().toString() +')';
+  document.body.style.background = 'rgb('+ randomColor() +')';
 }
 
 // This event listener will respond to "Show another quote" button clicks
