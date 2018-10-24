@@ -104,6 +104,7 @@ body {
   outline: none;
 }
 
+/* Enhancement of button position in landcape view */
 @media (orientation: landscape) {
   #loadQuote {
     position: absolute;

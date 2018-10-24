@@ -64,6 +64,9 @@ var quotes = [
   },
 ];
 
+// Timer Variable
+var time;
+
 // Here I create a random number between 0 and quotes.length-1
 
 function getRandomNumber(array){
@@ -89,18 +92,24 @@ function randomColor() {
 // The printQuote function gives an html block and places that block in the index file between divs of id 'quote-box'
 
 function printQuote(){
+  // Reset Timer onclick
+  clearTimeout(time);
   var html = '';
   var quoteObj = getRandomQuote(quotes);
   html += '<p class="quote">' + quoteObj.quote + '</p>' + '<p class="source">' + quoteObj.source;
 // Only creat span elements if property exists
+  if(Object.keys(quoteObj).length > 2){
   for (var i = 2; i < Object.keys(quoteObj).length; i++){
     html += '<span class="' + Object.keys(quoteObj)[i] + '">' + quoteObj[Object.keys(quoteObj)[i]] + '</span>';
+  }
   }
   html += '</p>';
   console.log(html);
   document.getElementById('quote-box').innerHTML = html;
   // Here we replace the body background color
   document.body.style.background = 'rgb('+ randomColor() +')';
+  // Timer start
+  time = setTimeout(function(){printQuote();}, 4000);
 }
 
 // This event listener will respond to "Show another quote" button clicks
@@ -109,4 +118,3 @@ document.getElementById('loadQuote').addEventListener("click", printQuote, false
 // Set initial quote and backround
 printQuote();
 // Set interval for chnage of background color and quotes
-setInterval(printQuote, 4000);
