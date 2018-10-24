@@ -66,50 +66,47 @@ var quotes = [
 
 // Timer Variable
 var time;
+var timeFrame = 4000;
+var colorRange = 255;
 
 // Here I create a random number between 0 and quotes.length-1
-
 function getRandomNumber(array){
   return (Math.floor(Math.random()*array.length));
 }
 
 // With the random number I retrieve an random object from quotes
-
 function getRandomQuote(pass){
   return pass[getRandomNumber(pass)];
 }
 
 // The randomColorFunction returns random an array of three random numbers (0 to 255) for use as rgb BackgroundColor
-
 function randomColor() {
   var num = [];
   for (var i = 0; i < 3; i++){
-  num.push(Math.floor(Math.random()*256));
+  num.push(Math.floor(Math.random()*(colorRange+1)));
   }
   return num;
 }
 
 // The printQuote function gives an html block and places that block in the index file between divs of id 'quote-box'
-
 function printQuote(){
   // Reset Timer onclick
   clearTimeout(time);
   var html = '';
   var quoteObj = getRandomQuote(quotes);
   html += '<p class="quote">' + quoteObj.quote + '</p>' + '<p class="source">' + quoteObj.source;
-// Only creat span elements if property exists
+  // Only creat span elements if property exists
   if(Object.keys(quoteObj).length > 2){
   for (var i = 2; i < Object.keys(quoteObj).length; i++){
     html += '<span class="' + Object.keys(quoteObj)[i] + '">' + quoteObj[Object.keys(quoteObj)[i]] + '</span>';
   }
   }
   html += '</p>';
-  console.log(html);
   document.getElementById('quote-box').innerHTML = html;
   // Here we replace the body background color
   document.body.style.background = 'rgb('+ randomColor() +')';
   // Timer start
-  time = setTimeout(function(){printQuote();}, 4000);
+  time = setTimeout(function(){printQuote();}, timeFrame);
 }
 
 // This event listener will respond to "Show another quote" button clicks
@@ -117,4 +114,3 @@ function printQuote(){
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 // Set initial quote and backround
 printQuote();
-// Set interval for chnage of background color and quotes
